@@ -60,21 +60,34 @@ def calcular_temperatura_promedio(temperaturas):
 
     Parámetros:
     temperaturas (list): Matriz 3D que contiene las temperaturas diarias de cada ciudad.
-
+                           La estructura es [ciudad][día][semana].
     Retorna:
     dict: Diccionario que contiene la temperatura promedio de cada ciudad durante cada semana.
+           La estructura es {ciudad: {semana: temperatura_promedio}}.
     """
     temperatura_promedio = {}
     ciudades = ["Quito", "Guayaquil", "Cuenca"]
+
+    # Iteramos sobre cada ciudad
     for ciudad in range(len(temperaturas)):
         ciudad_nombre = ciudades[ciudad]
         temperatura_promedio_ciudad = {}
+
+        # Iteramos sobre cada semana
         for semana in range(len(temperaturas[ciudad][0])):
             suma_temperaturas = 0
+
+            # Sumamos las temperaturas de cada día de la semana
             for dia in range(len(temperaturas[ciudad])):
                 suma_temperaturas += temperaturas[ciudad][dia][semana]
+
+            # Calculamos el promedio dividiendo por el número de día
             promedio_temperatura = suma_temperaturas / len(temperaturas[ciudad])
+
+            # Almacenamos el promedio en el diccionario
             temperatura_promedio_ciudad[f"Semana {semana+1}"] = promedio_temperatura
+
+        # Almacenamos los promedios de la ciudad en el diccionario principal
         temperatura_promedio[ciudad_nombre] = temperatura_promedio_ciudad
     return temperatura_promedio
 
